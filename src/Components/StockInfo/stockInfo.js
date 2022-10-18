@@ -5,10 +5,10 @@ function StockInfo(props)
     return(
         <div className="component stock-info">
             <div className="stock-info-title">
-                <h2>{props.activeStock.TickerSymbol}</h2>
-                <h3>{props.activeStock.Name}</h3>
+                <h2>{props.activeStockPreview?.tickerSymbol}</h2>
+                <h3>{props.activeStockPreview?.name}</h3>
             </div>
-            <h3>{props.activeStock.CurrencyCode}</h3>
+            <h3>{props.activeStockPreview?.currency}</h3>
         </div>
     );
 }

@@ -1,12 +1,12 @@
 import React from "react";
 import StockInfo from "./StockInfo/stockInfo";
 
+import { StockSearchClient } from "../stocks-api-client.ts";
+
 const initialState = {
-    activeStock: {
-        TickerSymbol: "QCOM",
-        Name: "Qualcomm Technologies",
-        CurrencyCode: "USD"
-    },
+    ActiveStockTickerSymbol: "QCOM",
+    ActiveStockPreview: null,
+    SearchResults: null
 };
 
 class App extends React.Component
@@ -17,11 +17,24 @@ class App extends React.Component
         this.state = initialState;
     }
 
+    componentDidMount()
+    {
+        this.searchStock();
+    }
+
+    async searchStock()
+    {
+        let client = new StockSearchClient();
+        await client
+            .get(this.state.ActiveStockTickerSymbol)
+            .then(data => this.setState({ ActiveStockPreview: data[0], SearchResults: data }));
+    }
+
     render()
     {
         return(
             <div>
-                <StockInfo activeStock={this.state.activeStock} />
+                <StockInfo activeStockPreview={this.state.ActiveStockPreview} />
             </div>
         );
     }
