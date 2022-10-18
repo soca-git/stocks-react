@@ -1,7 +1,6 @@
 
 .stock-price {
     width: 125px;
-    height: 75px;
     display: flex;
     flex-direction: row;
     justify-content: center;
