@@ -2,8 +2,6 @@
 .stock-info {
     width: 400px;
     height: 100px;
-    padding: 10px;
-    border: 3px dashed lightgrey;
 }
 
 .stock-info h2 {
