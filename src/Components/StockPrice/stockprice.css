@@ -15,6 +15,10 @@
     font-weight: bold;
 }
 
-.stock-price-delta {
-    color: plum;
+.stock-price-delta-positive {
+    color: lawngreen;
+}
+
+.stock-price-delta-negative {
+    color: crimson;
 }
