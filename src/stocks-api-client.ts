@@ -8,6 +8,59 @@
 /* eslint-disable */
 // ReSharper disable InconsistentNaming
 
+export class MarketStatusClient {
+    private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
+        this.http = http ? http : window as any;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://localhost:53672";
+    }
+
+    /**
+     * Returns market status based on the search query.
+     * @param tickerSymbol Instrument's ticker symbol.
+     */
+    get(tickerSymbol: string): Promise<MarketStatusPreview> {
+        let url_ = this.baseUrl + "/api/gateway/status/markets?";
+        if (tickerSymbol === undefined || tickerSymbol === null)
+            throw new Error("The parameter 'tickerSymbol' must be defined and cannot be null.");
+        else
+            url_ += "TickerSymbol=" + encodeURIComponent("" + tickerSymbol) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_: RequestInit = {
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processGet(_response);
+        });
+    }
+
+    protected processGet(response: Response): Promise<MarketStatusPreview> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = MarketStatusPreview.fromJS(resultData200);
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<MarketStatusPreview>(null as any);
+    }
+}
+
 export class StockSearchClient {
     private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
     private baseUrl: string;
@@ -244,6 +297,53 @@ export class HistoricalStockPricesClient {
     }
 }
 
+export class MarketStatusPreview implements IMarketStatusPreview {
+    /** Name of the market. */
+    name!: string;
+    /** The market's current status. */
+    status!: MarketStatus;
+
+    constructor(data?: IMarketStatusPreview) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.name = _data["Name"];
+            this.status = _data["Status"];
+        }
+    }
+
+    static fromJS(data: any): MarketStatusPreview {
+        data = typeof data === 'object' ? data : {};
+        let result = new MarketStatusPreview();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["Name"] = this.name;
+        data["Status"] = this.status;
+        return data;
+    }
+}
+
+export interface IMarketStatusPreview {
+    /** Name of the market. */
+    name: string;
+    /** The market's current status. */
+    status: MarketStatus;
+}
+
+/** Status of whether the market is open for trading or not. */
+export type MarketStatus = "Open" | "Closed";
+
 export class StockInformation implements IStockInformation {
     /** Instrument's ticker symbol. */
     tickerSymbol!: string;
@@ -251,6 +351,8 @@ export class StockInformation implements IStockInformation {
     name!: string;
     /** Instrument's traded currency. */
     currency!: CurrencyCode;
+    /** Market instrument is traded on. */
+    market!: string;
 
     constructor(data?: IStockInformation) {
         if (data) {
@@ -266,6 +368,7 @@ export class StockInformation implements IStockInformation {
             this.tickerSymbol = _data["TickerSymbol"];
             this.name = _data["Name"];
             this.currency = _data["Currency"];
+            this.market = _data["Market"];
         }
     }
 
@@ -281,6 +384,7 @@ export class StockInformation implements IStockInformation {
         data["TickerSymbol"] = this.tickerSymbol;
         data["Name"] = this.name;
         data["Currency"] = this.currency;
+        data["Market"] = this.market;
         return data;
     }
 }
@@ -292,6 +396,8 @@ export interface IStockInformation {
     name: string;
     /** Instrument's traded currency. */
     currency: CurrencyCode;
+    /** Market instrument is traded on. */
+    market: string;
 }
 
 export class StockPreview extends StockInformation implements IStockPreview {
