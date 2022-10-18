@@ -1,0 +1,25 @@
+
+.stock-info {
+    width: 400px;
+    height: 100px;
+    padding: 10px;
+    border: 3px dashed lightgrey;
+}
+
+.stock-info h2 {
+    padding: 5px;
+    color: black;
+    font-weight: bold;
+}
+
+.stock-info h3 {
+    padding: 5px;
+    color: darkgrey;
+}
+
+.stock-info-title {
+    line-height: 50px;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+}
