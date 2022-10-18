@@ -8,7 +8,11 @@ function StockInfo(props)
                 <h2>{props.activeStockPreview?.tickerSymbol}</h2>
                 <h3>{props.activeStockPreview?.name}</h3>
             </div>
-            <h3>{props.activeStockPreview?.currency}</h3>
+            <div className="stock-info-metadata">
+                <h3>{props.activeStockPreview?.market}</h3>
+                <h3>&#9679;</h3>
+                <h3>{props.activeStockPreview?.currency}</h3>
+            </div>
         </div>
     );
 }

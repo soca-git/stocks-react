@@ -21,3 +21,9 @@
     flex-direction: row;
     text-align: center;
 }
+
+.stock-info-metadata {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+}
