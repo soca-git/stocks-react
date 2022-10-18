@@ -1,7 +1,8 @@
 import React from "react";
-import StockInfo from "./StockInfo/stockInfo";
-
 import { StockSearchClient } from "../stocks-api-client.ts";
+
+import StockInfo from "./StockInfo/stockInfo";
+import StockPrice from "./StockPrice/stockprice";
 
 const initialState = {
     ActiveStockTickerSymbol: "QCOM",
@@ -35,6 +36,7 @@ class App extends React.Component
         return(
             <div>
                 <StockInfo activeStockPreview={this.state.ActiveStockPreview} />
+                <StockPrice activeStockPreview={this.state.ActiveStockPreview} />
             </div>
         );
     }
