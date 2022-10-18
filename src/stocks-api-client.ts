@@ -231,6 +231,112 @@ export class TickerSymbolsClient {
     }
 }
 
+export class StockAdvancedQuoteClient {
+    private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
+        this.http = http ? http : window as any;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://localhost:53672";
+    }
+
+    /**
+     * Returns an advanced stock quote of the specified market instrument.
+     * @param tickerSymbol Instrument's ticker symbol.
+     */
+    get(tickerSymbol: string): Promise<StockAdvancedQuote> {
+        let url_ = this.baseUrl + "/api/gateway/prices/advancedquote?";
+        if (tickerSymbol === undefined || tickerSymbol === null)
+            throw new Error("The parameter 'tickerSymbol' must be defined and cannot be null.");
+        else
+            url_ += "TickerSymbol=" + encodeURIComponent("" + tickerSymbol) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_: RequestInit = {
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processGet(_response);
+        });
+    }
+
+    protected processGet(response: Response): Promise<StockAdvancedQuote> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = StockAdvancedQuote.fromJS(resultData200);
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<StockAdvancedQuote>(null as any);
+    }
+}
+
+export class StockQuoteClient {
+    private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
+        this.http = http ? http : window as any;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://localhost:53672";
+    }
+
+    /**
+     * Returns a stock quote of the specified market instrument.
+     * @param tickerSymbol Instrument's ticker symbol.
+     */
+    get(tickerSymbol: string): Promise<StockQuote> {
+        let url_ = this.baseUrl + "/api/gateway/prices/quote?";
+        if (tickerSymbol === undefined || tickerSymbol === null)
+            throw new Error("The parameter 'tickerSymbol' must be defined and cannot be null.");
+        else
+            url_ += "TickerSymbol=" + encodeURIComponent("" + tickerSymbol) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_: RequestInit = {
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processGet(_response);
+        });
+    }
+
+    protected processGet(response: Response): Promise<StockQuote> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = StockQuote.fromJS(resultData200);
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<StockQuote>(null as any);
+    }
+}
+
 export class HistoricalStockPricesClient {
     private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
     private baseUrl: string;
@@ -443,6 +549,166 @@ export interface IStockPreview extends IStockInformation {
 
 /** A currency's ISO-4217 standard code */
 export type CurrencyCode = "AED" | "AFN" | "ALL" | "AMD" | "ANG" | "AOA" | "ARS" | "AUD" | "AWG" | "AZN" | "BAM" | "BBD" | "BDT" | "BGN" | "BHD" | "BIF" | "BMD" | "BND" | "BOB" | "BOV" | "BRL" | "BSD" | "BTN" | "BWP" | "BYN" | "BZD" | "CAD" | "CDF" | "CHE" | "CHF" | "CHW" | "CLF" | "CLP" | "CNY" | "COP" | "COU" | "CRC" | "CUC" | "CUP" | "CVE" | "CZK" | "DJF" | "DKK" | "DOP" | "DZD" | "EGP" | "ERN" | "ETB" | "EUR" | "FJD" | "FKP" | "GBP" | "GEL" | "GHS" | "GIP" | "GMD" | "GNF" | "GTQ" | "GYD" | "HKD" | "HNL" | "HRK" | "HTG" | "HUF" | "IDR" | "ILS" | "INR" | "IQD" | "IRR" | "ISK" | "JMD" | "JOD" | "JPY" | "KES" | "KGS" | "KHR" | "KMF" | "KPW" | "KRW" | "KWD" | "KYD" | "KZT" | "LAK" | "LBP" | "LKR" | "LRD" | "LSL" | "LYD" | "MAD" | "MDL" | "MGA" | "MKD" | "MMK" | "MNT" | "MOP" | "MRU" | "MUR" | "MVR" | "MWK" | "MXN" | "MXV" | "MYR" | "MZN" | "NAD" | "NGN" | "NIO" | "NOK" | "NPR" | "NZD" | "OMR" | "PAB" | "PEN" | "PGK" | "PHP" | "PKR" | "PLN" | "PYG" | "QAR" | "RON" | "RSD" | "RUB" | "RWF" | "SAR" | "SBD" | "SCR" | "SDG" | "SEK" | "SGD" | "SHP" | "SLE" | "SOS" | "SRD" | "SSP" | "STN" | "SVC" | "SYP" | "SZL" | "THB" | "TJS" | "TMT" | "TND" | "TOP" | "TRY" | "TTD" | "TWD" | "TZS" | "UAH" | "UGX" | "USD" | "USN" | "UYI" | "UYU" | "UZS" | "VED" | "VEF" | "VND" | "VUV" | "WST" | "XAF" | "XCD" | "XDR" | "XOF" | "XPF" | "XSU" | "XUA" | "YER" | "ZAR" | "ZMW" | "ZWL";
+
+export class StockAdvancedQuote extends StockInformation implements IStockAdvancedQuote {
+    /** Instrument's current price. */
+    currentPrice!: number;
+    /** Instrument's current delta. */
+    currentDelta!: number;
+    /** Instrument's price on market open. */
+    openPrice!: number;
+    /** Instrument's price on market close. */
+    closePrice!: number;
+    /** Instrument's highest price. */
+    highPrice!: number;
+    /** Instrument's lowest price. */
+    lowPrice!: number;
+    /** Instrument's traded volume. */
+    volume!: number;
+    /** Instrument's average traded volume. */
+    averageVolume!: number;
+    /** Instrument's price per earnings ratio. */
+    pricePerEarningsRatio!: number;
+    /** Instrument's market cap. */
+    marketCap!: number;
+    /** Instrument's highest value in the past 52 weeks. */
+    fiftyTwoWeekHigh!: number;
+    /** Instrument's lowest value in the past 52 weeks. */
+    fiftyTwoWeekLow!: number;
+    /** Instrument's yield. */
+    yield!: number;
+    /** Instrument's beta. */
+    beta!: number;
+    /** Instrument's earnings per share. */
+    earningsPerShare!: number;
+
+    constructor(data?: IStockAdvancedQuote) {
+        super(data);
+    }
+
+    override init(_data?: any) {
+        super.init(_data);
+        if (_data) {
+            this.currentPrice = _data["CurrentPrice"];
+            this.currentDelta = _data["CurrentDelta"];
+            this.openPrice = _data["OpenPrice"];
+            this.closePrice = _data["ClosePrice"];
+            this.highPrice = _data["HighPrice"];
+            this.lowPrice = _data["LowPrice"];
+            this.volume = _data["Volume"];
+            this.averageVolume = _data["AverageVolume"];
+            this.pricePerEarningsRatio = _data["PricePerEarningsRatio"];
+            this.marketCap = _data["MarketCap"];
+            this.fiftyTwoWeekHigh = _data["FiftyTwoWeekHigh"];
+            this.fiftyTwoWeekLow = _data["FiftyTwoWeekLow"];
+            this.yield = _data["Yield"];
+            this.beta = _data["Beta"];
+            this.earningsPerShare = _data["EarningsPerShare"];
+        }
+    }
+
+    static override fromJS(data: any): StockAdvancedQuote {
+        data = typeof data === 'object' ? data : {};
+        let result = new StockAdvancedQuote();
+        result.init(data);
+        return result;
+    }
+
+    override toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["CurrentPrice"] = this.currentPrice;
+        data["CurrentDelta"] = this.currentDelta;
+        data["OpenPrice"] = this.openPrice;
+        data["ClosePrice"] = this.closePrice;
+        data["HighPrice"] = this.highPrice;
+        data["LowPrice"] = this.lowPrice;
+        data["Volume"] = this.volume;
+        data["AverageVolume"] = this.averageVolume;
+        data["PricePerEarningsRatio"] = this.pricePerEarningsRatio;
+        data["MarketCap"] = this.marketCap;
+        data["FiftyTwoWeekHigh"] = this.fiftyTwoWeekHigh;
+        data["FiftyTwoWeekLow"] = this.fiftyTwoWeekLow;
+        data["Yield"] = this.yield;
+        data["Beta"] = this.beta;
+        data["EarningsPerShare"] = this.earningsPerShare;
+        super.toJSON(data);
+        return data;
+    }
+}
+
+export interface IStockAdvancedQuote extends IStockInformation {
+    /** Instrument's current price. */
+    currentPrice: number;
+    /** Instrument's current delta. */
+    currentDelta: number;
+    /** Instrument's price on market open. */
+    openPrice: number;
+    /** Instrument's price on market close. */
+    closePrice: number;
+    /** Instrument's highest price. */
+    highPrice: number;
+    /** Instrument's lowest price. */
+    lowPrice: number;
+    /** Instrument's traded volume. */
+    volume: number;
+    /** Instrument's average traded volume. */
+    averageVolume: number;
+    /** Instrument's price per earnings ratio. */
+    pricePerEarningsRatio: number;
+    /** Instrument's market cap. */
+    marketCap: number;
+    /** Instrument's highest value in the past 52 weeks. */
+    fiftyTwoWeekHigh: number;
+    /** Instrument's lowest value in the past 52 weeks. */
+    fiftyTwoWeekLow: number;
+    /** Instrument's yield. */
+    yield: number;
+    /** Instrument's beta. */
+    beta: number;
+    /** Instrument's earnings per share. */
+    earningsPerShare: number;
+}
+
+export class StockQuote extends StockInformation implements IStockQuote {
+    /** Instrument's current price. */
+    currentPrice!: number;
+    /** Instrument's current delta. */
+    currentDelta!: number;
+
+    constructor(data?: IStockQuote) {
+        super(data);
+    }
+
+    override init(_data?: any) {
+        super.init(_data);
+        if (_data) {
+            this.currentPrice = _data["CurrentPrice"];
+            this.currentDelta = _data["CurrentDelta"];
+        }
+    }
+
+    static override fromJS(data: any): StockQuote {
+        data = typeof data === 'object' ? data : {};
+        let result = new StockQuote();
+        result.init(data);
+        return result;
+    }
+
+    override toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["CurrentPrice"] = this.currentPrice;
+        data["CurrentDelta"] = this.currentDelta;
+        super.toJSON(data);
+        return data;
+    }
+}
+
+export interface IStockQuote extends IStockInformation {
+    /** Instrument's current price. */
+    currentPrice: number;
+    /** Instrument's current delta. */
+    currentDelta: number;
+}
 
 export class DayStockPrice implements IDayStockPrice {
     /** The date of the day's stock price information. */
