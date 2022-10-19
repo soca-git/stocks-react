@@ -10,5 +10,6 @@ https://github.com/users/soca-git/projects/1
 - [react-ttt](https://github.com/soca-git/react-ttt)
 
 ![macos-stocks](./macos-stocks-breakdown.png)
+![stocks-react-components](./stocks-react-components.png)
 
 ---
