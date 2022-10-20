@@ -47,7 +47,7 @@ class App extends React.Component
         return(
             <div className="app">
                 <h1 className="title">Stocks App &#128480;</h1>
-                <h3 className="under-development">&#128296; App components under development &#128296;</h3>
+                <h3 className="under-development">&#128296; components under development &#128296;</h3>
                 <StockInfo activeStockPreview={this.state.ActiveStockPreview} />
                 <StockPrice activeStockPreview={this.state.ActiveStockPreview} />
                 <MarketStatus marketStatus={this.state.MarketStatus} />
