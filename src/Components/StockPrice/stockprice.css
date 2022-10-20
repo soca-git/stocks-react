@@ -16,9 +16,9 @@
 }
 
 .stock-price-delta-positive {
-    color: lawngreen;
+    color: lightgreen;
 }
 
 .stock-price-delta-negative {
-    color: crimson;
+    color: red;
 }
