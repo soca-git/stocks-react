@@ -405,9 +405,9 @@ export class HistoricalStockPricesClient {
 
 export class MarketStatusPreview implements IMarketStatusPreview {
     /** Name of the market. */
-    name!: string;
+    name?: string;
     /** The market's current status. */
-    status!: MarketStatus;
+    status?: MarketStatus;
 
     constructor(data?: IMarketStatusPreview) {
         if (data) {
@@ -442,9 +442,9 @@ export class MarketStatusPreview implements IMarketStatusPreview {
 
 export interface IMarketStatusPreview {
     /** Name of the market. */
-    name: string;
+    name?: string;
     /** The market's current status. */
-    status: MarketStatus;
+    status?: MarketStatus;
 }
 
 /** Status of whether the market is open for trading or not. */
@@ -452,13 +452,13 @@ export type MarketStatus = "Open" | "Closed";
 
 export class StockInformation implements IStockInformation {
     /** Instrument's ticker symbol. */
-    tickerSymbol!: string;
+    tickerSymbol?: string;
     /** Instrument's name. */
-    name!: string;
+    name?: string;
     /** Instrument's traded currency. */
-    currency!: CurrencyCode;
+    currency?: CurrencyCode;
     /** Market instrument is traded on. */
-    market!: string;
+    market?: string;
 
     constructor(data?: IStockInformation) {
         if (data) {
@@ -497,20 +497,20 @@ export class StockInformation implements IStockInformation {
 
 export interface IStockInformation {
     /** Instrument's ticker symbol. */
-    tickerSymbol: string;
+    tickerSymbol?: string;
     /** Instrument's name. */
-    name: string;
+    name?: string;
     /** Instrument's traded currency. */
-    currency: CurrencyCode;
+    currency?: CurrencyCode;
     /** Market instrument is traded on. */
-    market: string;
+    market?: string;
 }
 
 export class StockPreview extends StockInformation implements IStockPreview {
     /** Instrument's current price. */
-    currentPrice!: number;
+    currentPrice?: number;
     /** Instrument's current delta. */
-    currentDelta!: number;
+    currentDelta?: number;
 
     constructor(data?: IStockPreview) {
         super(data);
@@ -542,9 +542,9 @@ export class StockPreview extends StockInformation implements IStockPreview {
 
 export interface IStockPreview extends IStockInformation {
     /** Instrument's current price. */
-    currentPrice: number;
+    currentPrice?: number;
     /** Instrument's current delta. */
-    currentDelta: number;
+    currentDelta?: number;
 }
 
 /** A currency's ISO-4217 standard code */
@@ -552,35 +552,35 @@ export type CurrencyCode = "AED" | "AFN" | "ALL" | "AMD" | "ANG" | "AOA" | "ARS"
 
 export class StockAdvancedQuote extends StockInformation implements IStockAdvancedQuote {
     /** Instrument's current price. */
-    currentPrice!: number;
+    currentPrice?: number;
     /** Instrument's current delta. */
-    currentDelta!: number;
+    currentDelta?: number;
     /** Instrument's price on market open. */
-    openPrice!: number;
+    openPrice?: number;
     /** Instrument's price on market close. */
-    closePrice!: number;
+    closePrice?: number;
     /** Instrument's highest price. */
-    highPrice!: number;
+    highPrice?: number;
     /** Instrument's lowest price. */
-    lowPrice!: number;
+    lowPrice?: number;
     /** Instrument's traded volume. */
-    volume!: number;
+    volume?: number;
     /** Instrument's average traded volume. */
-    averageVolume!: number;
+    averageVolume?: number;
     /** Instrument's price per earnings ratio. */
-    pricePerEarningsRatio!: number;
+    pricePerEarningsRatio?: number;
     /** Instrument's market cap. */
-    marketCap!: number;
+    marketCap?: number;
     /** Instrument's highest value in the past 52 weeks. */
-    fiftyTwoWeekHigh!: number;
+    fiftyTwoWeekHigh?: number;
     /** Instrument's lowest value in the past 52 weeks. */
-    fiftyTwoWeekLow!: number;
+    fiftyTwoWeekLow?: number;
     /** Instrument's yield. */
-    yield!: number;
+    yield?: number;
     /** Instrument's beta. */
-    beta!: number;
+    beta?: number;
     /** Instrument's earnings per share. */
-    earningsPerShare!: number;
+    earningsPerShare?: number;
 
     constructor(data?: IStockAdvancedQuote) {
         super(data);
@@ -638,42 +638,42 @@ export class StockAdvancedQuote extends StockInformation implements IStockAdvanc
 
 export interface IStockAdvancedQuote extends IStockInformation {
     /** Instrument's current price. */
-    currentPrice: number;
+    currentPrice?: number;
     /** Instrument's current delta. */
-    currentDelta: number;
+    currentDelta?: number;
     /** Instrument's price on market open. */
-    openPrice: number;
+    openPrice?: number;
     /** Instrument's price on market close. */
-    closePrice: number;
+    closePrice?: number;
     /** Instrument's highest price. */
-    highPrice: number;
+    highPrice?: number;
     /** Instrument's lowest price. */
-    lowPrice: number;
+    lowPrice?: number;
     /** Instrument's traded volume. */
-    volume: number;
+    volume?: number;
     /** Instrument's average traded volume. */
-    averageVolume: number;
+    averageVolume?: number;
     /** Instrument's price per earnings ratio. */
-    pricePerEarningsRatio: number;
+    pricePerEarningsRatio?: number;
     /** Instrument's market cap. */
-    marketCap: number;
+    marketCap?: number;
     /** Instrument's highest value in the past 52 weeks. */
-    fiftyTwoWeekHigh: number;
+    fiftyTwoWeekHigh?: number;
     /** Instrument's lowest value in the past 52 weeks. */
-    fiftyTwoWeekLow: number;
+    fiftyTwoWeekLow?: number;
     /** Instrument's yield. */
-    yield: number;
+    yield?: number;
     /** Instrument's beta. */
-    beta: number;
+    beta?: number;
     /** Instrument's earnings per share. */
-    earningsPerShare: number;
+    earningsPerShare?: number;
 }
 
 export class StockQuote extends StockInformation implements IStockQuote {
     /** Instrument's current price. */
-    currentPrice!: number;
+    currentPrice?: number;
     /** Instrument's current delta. */
-    currentDelta!: number;
+    currentDelta?: number;
 
     constructor(data?: IStockQuote) {
         super(data);
@@ -705,24 +705,24 @@ export class StockQuote extends StockInformation implements IStockQuote {
 
 export interface IStockQuote extends IStockInformation {
     /** Instrument's current price. */
-    currentPrice: number;
+    currentPrice?: number;
     /** Instrument's current delta. */
-    currentDelta: number;
+    currentDelta?: number;
 }
 
 export class DayStockPrice implements IDayStockPrice {
     /** The date of the day's stock price information. */
-    date!: Date;
+    date?: Date;
     /** The stock price on market open. */
-    open!: number;
+    open?: number;
     /** The stock price on market close. */
-    close!: number;
+    close?: number;
     /** The highest price of the stock during the day. */
-    high!: number;
+    high?: number;
     /** The lowest price of the stock during the day. */
-    low!: number;
+    low?: number;
     /** The volume of stock traded during the day. */
-    volume!: number;
+    volume?: number;
 
     constructor(data?: IDayStockPrice) {
         if (data) {
@@ -765,17 +765,17 @@ export class DayStockPrice implements IDayStockPrice {
 
 export interface IDayStockPrice {
     /** The date of the day's stock price information. */
-    date: Date;
+    date?: Date;
     /** The stock price on market open. */
-    open: number;
+    open?: number;
     /** The stock price on market close. */
-    close: number;
+    close?: number;
     /** The highest price of the stock during the day. */
-    high: number;
+    high?: number;
     /** The lowest price of the stock during the day. */
-    low: number;
+    low?: number;
     /** The volume of stock traded during the day. */
-    volume: number;
+    volume?: number;
 }
 
 /** Range of time for which prices will be returned. */
