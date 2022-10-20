@@ -1,0 +1,25 @@
+
+.additional-info table {
+    width: 100%;
+}
+
+.additional-info tbody {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.additional-info th {
+    padding: 5px;
+    color: darkgrey;
+}
+
+.additional-info td {
+    padding: 5px;
+}
+
+tcol div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

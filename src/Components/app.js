@@ -1,14 +1,16 @@
 import React from "react";
 import './app.css';
-import { StockSearchClient, MarketStatusClient } from "../stocks-api-client.ts";
+import { StockSearchClient, MarketStatusClient, StockAdvancedQuoteClient } from "../stocks-api-client.ts";
 
 import StockInfo from "./StockInfo/stockInfo";
 import StockPrice from "./StockPrice/stockprice";
 import MarketStatus from "./MarketStatus/marketstatus";
+import StockAdditionalInfo from "./StockAdditionalInfo/stockadditionalinfo";
 
 const initialState = {
     ActiveStockTickerSymbol: "QCOM",
     ActiveStockPreview: null,
+    ActiveStockAdvancedQuote: null,
     MarketStatus: null,
     SearchResults: null
 };
@@ -25,6 +27,7 @@ class App extends React.Component
     {
         this.searchStock();
         this.updateMarketStatus();
+        this.retrieveAdvancedQuote();
     }
 
     async searchStock()
@@ -40,7 +43,15 @@ class App extends React.Component
         let client = new MarketStatusClient();
         await client
             .get(this.state.ActiveStockTickerSymbol)
-            .then(data => this.setState({ MarketStatus: data}))
+            .then(data => this.setState({ MarketStatus: data}));
+    }
+
+    async retrieveAdvancedQuote()
+    {
+        let client = new StockAdvancedQuoteClient();
+        await client
+            .get(this.state.ActiveStockTickerSymbol)
+            .then(data => this.setState({ ActiveStockAdvancedQuote: data}));
     }
 
     render()
@@ -65,7 +76,7 @@ class App extends React.Component
                     </div>
                     <div className="main-content-bottom">
                         <div className="component chart">&#128296;</div>
-                        <div className="component additional-info">&#128296;</div>
+                        <StockAdditionalInfo activeStockAdvancedQuote={this.state.ActiveStockAdvancedQuote} />
                         <div className="component news">&#128296;</div>
                     </div>
                 </div>
