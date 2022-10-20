@@ -13,7 +13,7 @@ function StockPrice(props)
     else
     {
         deltaClassName = "stock-price-delta-negative";
-        deltaSymbol = "-";
+        deltaSymbol = "";
     }
 
     return(
