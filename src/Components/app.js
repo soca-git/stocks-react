@@ -55,11 +55,18 @@ class App extends React.Component
                         <MarketStatus marketStatus={this.state.MarketStatus} />
                     </div>
                 </div>
-                <div className="top-bar">
-                    <div className="top-bar-spacer"></div>
-                    <div className="top-bar-content">
-                        <StockInfo activeStockPreview={this.state.ActiveStockPreview} />
-                        <StockPrice activeStockPreview={this.state.ActiveStockPreview} />
+                <div className="main-content">
+                    <div className="main-content-top">
+                        <div className="main-content-top-spacer"></div>
+                        <div className="main-content-top-body">
+                            <StockInfo activeStockPreview={this.state.ActiveStockPreview} />
+                            <StockPrice activeStockPreview={this.state.ActiveStockPreview} />
+                        </div>
+                    </div>
+                    <div className="main-content-bottom">
+                        <div className="component chart">&#128296;</div>
+                        <div className="component additional-info">&#128296;</div>
+                        <div className="component news">&#128296;</div>
                     </div>
                 </div>
             </div>

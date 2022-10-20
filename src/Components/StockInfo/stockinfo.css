@@ -15,14 +15,15 @@
 }
 
 .stock-info-title {
-    line-height: 50px;
     display: flex;
     flex-direction: row;
-    text-align: center;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .stock-info-metadata {
     display: flex;
     flex-direction: row;
-    text-align: center;
+    justify-content: flex-start;
+    align-items: center;
 }
