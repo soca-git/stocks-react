@@ -1,4 +1,5 @@
 import React from "react";
+import './app.css';
 import { StockSearchClient, MarketStatusClient } from "../stocks-api-client.ts";
 
 import StockInfo from "./StockInfo/stockInfo";
@@ -46,11 +47,21 @@ class App extends React.Component
     {
         return(
             <div className="app">
-                <h1 className="title">Stocks App &#128480;</h1>
-                <h3 className="under-development">&#128296; components under development &#128296;</h3>
-                <StockInfo activeStockPreview={this.state.ActiveStockPreview} />
-                <StockPrice activeStockPreview={this.state.ActiveStockPreview} />
-                <MarketStatus marketStatus={this.state.MarketStatus} />
+                <div className="side-bar">
+                    <div className="component search">&#128296;</div>
+                    <div className="component search-results">&#128296;</div>
+                    <div className="side-bar-bottom">
+                        <div className="component title">IEXCloud</div>
+                        <MarketStatus marketStatus={this.state.MarketStatus} />
+                    </div>
+                </div>
+                <div className="top-bar">
+                    <div className="top-bar-spacer"></div>
+                    <div className="top-bar-content">
+                        <StockInfo activeStockPreview={this.state.ActiveStockPreview} />
+                        <StockPrice activeStockPreview={this.state.ActiveStockPreview} />
+                    </div>
+                </div>
             </div>
         );
     }

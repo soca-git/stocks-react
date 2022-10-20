@@ -1,13 +1,11 @@
 
 .market-status {
-    width: 125px;
+    padding: 5px;
+
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    color: lightgrey;
-}
 
-.market-status h3 {
-    padding: 5px;
+    color: lightgrey;
 }
