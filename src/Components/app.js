@@ -32,10 +32,12 @@ class App extends React.Component
         this.searchStock();
     }
 
-    componentDidUpdate()
+    async retrieveTickerSymbols()
     {
-        this.updateMarketStatus();
-        this.retrieveAdvancedQuote();
+        let client = new TickerSymbolsClient()
+        await client
+            .get()
+            .then(data => this.setState({ TickerSymbols: data }));
     }
 
     async searchStock()
@@ -47,7 +49,13 @@ class App extends React.Component
                 ActiveStockTickerSymbol: data[0].tickerSymbol,
                 ActiveStockPreview: data[0],
                 SearchResults: data
-            }));
+            }, () => {this.updateAfterSearch()}));
+    }
+
+    async updateAfterSearch()
+    {
+        this.updateMarketStatus();
+        this.retrieveAdvancedQuote();
     }
 
     async updateMarketStatus()
@@ -64,14 +72,6 @@ class App extends React.Component
         await client
             .get(this.state.ActiveStockTickerSymbol)
             .then(data => this.setState({ ActiveStockAdvancedQuote: data}));
-    }
-
-    async retrieveTickerSymbols()
-    {
-        let client = new TickerSymbolsClient()
-        await client
-            .get()
-            .then(data => this.setState({ TickerSymbols: data }));
     }
 
     render()
