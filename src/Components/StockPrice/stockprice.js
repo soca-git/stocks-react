@@ -2,24 +2,26 @@ import './stockprice.css';
 
 function StockPrice(props)
 {
-    var deltaClassName;
-    var deltaSymbol;
+    let priceDelta = <h3 className="stock-price-delta stock-price-delta-negative">{props.activeStockPreview?.currentDelta}</h3>;
+    let priceSource = <div className="stock-price-source">At Close</div>
 
     if (props.activeStockPreview?.currentDelta >= 0)
     {
-        deltaClassName = "stock-price-delta-positive";
-        deltaSymbol = "+";
+        priceDelta = <h3 className="stock-price-delta stock-price-delta-positive">+{props.activeStockPreview?.currentDelta}</h3>;
     }
-    else
+
+    if (props.marketStatus?.status == "Open")
     {
-        deltaClassName = "stock-price-delta-negative";
-        deltaSymbol = "";
+        priceSource = <div className="stock-price-source">Live</div>
     }
 
     return(
         <div className="component stock-price">
-            <h3 className="stock-price-current">{props.activeStockPreview?.currentPrice}</h3>
-            <h3 className={deltaClassName}>{deltaSymbol}{props.activeStockPreview?.currentDelta}</h3>
+            <div className="stock-price-top">
+                <h3 className="stock-price-current">{props.activeStockPreview?.currentPrice}</h3>
+                {priceDelta}
+            </div>
+            {priceSource}
         </div>
     );
 }

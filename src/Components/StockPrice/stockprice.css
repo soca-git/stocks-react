@@ -1,18 +1,24 @@
 
 .stock-price {
-    width: 125px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.stock-price-top {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
 }
 
-.stock-price h3 {
-    padding-right: 5px;
-}
-
 .stock-price-current {
     font-weight: bold;
+}
+
+.stock-price-delta {
+    margin-left: 5px;
 }
 
 .stock-price-delta-positive {
@@ -21,4 +27,9 @@
 
 .stock-price-delta-negative {
     color: red;
+}
+
+.stock-price-source {
+    font-weight: bold;
+    color: darkgrey;
 }

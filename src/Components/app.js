@@ -86,7 +86,7 @@ class App extends React.Component
                         <div className="main-content-top-spacer"></div>
                         <div className="main-content-top-body">
                             <StockInfo activeStockPreview={this.state.ActiveStockPreview} />
-                            <StockPrice activeStockPreview={this.state.ActiveStockPreview} />
+                            <StockPrice activeStockPreview={this.state.ActiveStockPreview} marketStatus={this.state.MarketStatus} />
                         </div>
                     </div>
                     <div className="main-content-bottom">
