@@ -1,6 +1,6 @@
 
 .stock-info {
-    width: 400px;
+    max-width: 300px;
 }
 
 .stock-info h2 {
@@ -19,6 +19,10 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+
+    font-size: smaller;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .stock-info-metadata {
