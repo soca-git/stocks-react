@@ -1,11 +1,4 @@
 
-.app-exploded {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-}
-
 .app {
     padding: 5px;
     border: 1px dashed grey;
@@ -27,12 +20,21 @@
     border-radius: 5px;
 }
 
+.side-bar-spacer {
+    margin: 5px;
+
+    border-bottom: 1px solid lightgrey;
+}
+
 .search {
     height: 50px;
 }
 
 .search-results {
     height: 100%;
+
+    max-height: 500px;
+    overflow: scroll;
 }
 
 .title {
@@ -58,6 +60,7 @@
 
 .main-content-top-spacer {
     height: 40px;
+    margin: 5px;
 
     border-bottom: 1px solid whitesmoke;
 }
@@ -86,4 +89,8 @@
     border: 1px dashed grey;
     border-radius: 5px;
     background: radial-gradient(circle at 10% 20%, rgba(216, 241, 230, 0.46) 0.1%, rgba(233, 226, 226, 0.28) 90.1%);
+}
+
+ul {
+    list-style-type: none;
 }
