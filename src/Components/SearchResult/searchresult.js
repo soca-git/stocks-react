@@ -1,4 +1,5 @@
 import './searchresult.css';
+import { FormatPrice } from '../../Utils/stockdataformatter.js'
 
 function SearchResult(props)
 {
@@ -27,8 +28,8 @@ function SearchResult(props)
                     <div className="search-result-name">{props.activeStockPreview?.name}</div>
                 </div>
                 <div>
-                    <div className="search-result-price">{props.activeStockPreview?.currentPrice}</div>
-                    <div className={deltaClassName}>{deltaSymbol}{props.activeStockPreview?.currentDelta}</div>
+                    <div className="search-result-price">{FormatPrice(props.activeStockPreview?.currentPrice)}</div>
+                    <div className={deltaClassName}>{deltaSymbol}{FormatPrice(props.activeStockPreview?.currentDelta)}</div>
                 </div>
             </li>
         </div>
