@@ -31,3 +31,12 @@
     justify-content: flex-start;
     align-items: center;
 }
+
+.stock-info-metadata h3 {
+    font-size: medium;
+}
+
+.stock-info-metadata h4 {
+    font-size: xx-small;
+    color: darkgrey;  
+}

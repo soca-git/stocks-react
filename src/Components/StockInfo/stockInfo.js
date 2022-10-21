@@ -10,7 +10,7 @@ function StockInfo(props)
             </div>
             <div className="stock-info-metadata">
                 <h3>{props.activeStockPreview?.market}</h3>
-                <h3>&#9679;</h3>
+                <h4>&#9679;</h4>
                 <h3>{props.activeStockPreview?.currency}</h3>
             </div>
         </div>
