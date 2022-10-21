@@ -2,8 +2,8 @@ import './searchresult.css';
 
 function SearchResult(props)
 {
-    var deltaClassName = "search-result-delta";
-    var deltaSymbol;
+    let deltaClassName = "search-result-delta";
+    let deltaSymbol;
 
     if (props.activeStockPreview?.currentDelta >= 0)
     {
