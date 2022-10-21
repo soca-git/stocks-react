@@ -1,0 +1,51 @@
+
+.search-result li {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    padding-bottom: 5px;
+    border-bottom: 1px solid lightgrey;
+}
+
+.search-result-top {
+    display: flex;
+    flex-direction: row;
+}
+
+.search-result-symbol {
+    font-weight: bold;
+}
+
+.search-result-currency {
+    margin-left: 5px;
+    color: darkgrey;
+}
+
+.search-result-name {
+    max-width: 120px;
+    white-space: nowrap;
+    overflow: hidden;
+
+    color: darkgrey;
+}
+
+.search-result-price {
+    font-weight: bold;
+}
+
+.search-result-delta {
+    padding-right: 3px;
+
+    color: white;
+    border-radius: 5px;
+    text-align: end;
+}
+
+.search-result-delta-positive {
+    background-color: lightgreen;
+}
+
+.search-result-delta-negative {
+    background-color: red;
+}

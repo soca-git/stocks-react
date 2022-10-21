@@ -6,6 +6,7 @@ import StockInfo from "./StockInfo/stockInfo";
 import StockPrice from "./StockPrice/stockprice";
 import MarketStatus from "./MarketStatus/marketstatus";
 import StockAdditionalInfo from "./StockAdditionalInfo/stockadditionalinfo";
+import SearchResult from "./SearchResult/searchresult";
 
 const initialState = {
     ActiveStockTickerSymbol: "QCOM",
@@ -60,7 +61,21 @@ class App extends React.Component
             <div className="app">
                 <div className="side-bar">
                     <div className="component search">&#128296;</div>
-                    <div className="component search-results">&#128296;</div>
+                    <div className="side-bar-spacer"></div>
+                    <div className="search-results">
+                        <ul>
+                            <SearchResult activeStockPreview={this.state.ActiveStockPreview} />
+                            <SearchResult activeStockPreview={this.state.ActiveStockPreview} />
+                            <SearchResult activeStockPreview={this.state.ActiveStockPreview} />
+                            <SearchResult activeStockPreview={this.state.ActiveStockPreview} />
+                            <SearchResult activeStockPreview={this.state.ActiveStockPreview} />
+                            <SearchResult activeStockPreview={this.state.ActiveStockPreview} />
+                            <SearchResult activeStockPreview={this.state.ActiveStockPreview} />
+                            <SearchResult activeStockPreview={this.state.ActiveStockPreview} />
+                            <SearchResult activeStockPreview={this.state.ActiveStockPreview} />
+                        </ul>
+                    </div>
+                    <div className="side-bar-spacer"></div>
                     <div className="side-bar-bottom">
                         <div className="component title">IEXCloud</div>
                         <MarketStatus marketStatus={this.state.MarketStatus} />
