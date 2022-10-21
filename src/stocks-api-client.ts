@@ -73,14 +73,19 @@ export class StockSearchClient {
 
     /**
      * Returns stock previews based on the search query.
-     * @param tickerSymbol Instrument's ticker symbol.
+     * @param fragment The fragment used for the search.
+     * @param count (optional) The maximum number of results returned.
      */
-    get(tickerSymbol: string): Promise<StockPreview[]> {
+    get(fragment: string, count: number | undefined): Promise<StockPreview[]> {
         let url_ = this.baseUrl + "/api/gateway/search/stocks?";
-        if (tickerSymbol === undefined || tickerSymbol === null)
-            throw new Error("The parameter 'tickerSymbol' must be defined and cannot be null.");
+        if (fragment === undefined || fragment === null)
+            throw new Error("The parameter 'fragment' must be defined and cannot be null.");
         else
-            url_ += "TickerSymbol=" + encodeURIComponent("" + tickerSymbol) + "&";
+            url_ += "Fragment=" + encodeURIComponent("" + fragment) + "&";
+        if (count === null)
+            throw new Error("The parameter 'count' cannot be null.");
+        else if (count !== undefined)
+            url_ += "Count=" + encodeURIComponent("" + count) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_: RequestInit = {
@@ -506,13 +511,13 @@ export interface IStockInformation {
     market?: string;
 }
 
-export class StockPreview extends StockInformation implements IStockPreview {
+export class StockQuote extends StockInformation implements IStockQuote {
     /** Instrument's current price. */
     currentPrice?: number;
     /** Instrument's current delta. */
     currentDelta?: number;
 
-    constructor(data?: IStockPreview) {
+    constructor(data?: IStockQuote) {
         super(data);
     }
 
@@ -524,9 +529,9 @@ export class StockPreview extends StockInformation implements IStockPreview {
         }
     }
 
-    static override fromJS(data: any): StockPreview {
+    static override fromJS(data: any): StockQuote {
         data = typeof data === 'object' ? data : {};
-        let result = new StockPreview();
+        let result = new StockQuote();
         result.init(data);
         return result;
     }
@@ -540,11 +545,38 @@ export class StockPreview extends StockInformation implements IStockPreview {
     }
 }
 
-export interface IStockPreview extends IStockInformation {
+export interface IStockQuote extends IStockInformation {
     /** Instrument's current price. */
     currentPrice?: number;
     /** Instrument's current delta. */
     currentDelta?: number;
+}
+
+export class StockPreview extends StockQuote implements IStockPreview {
+
+    constructor(data?: IStockPreview) {
+        super(data);
+    }
+
+    override init(_data?: any) {
+        super.init(_data);
+    }
+
+    static override fromJS(data: any): StockPreview {
+        data = typeof data === 'object' ? data : {};
+        let result = new StockPreview();
+        result.init(data);
+        return result;
+    }
+
+    override toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        super.toJSON(data);
+        return data;
+    }
+}
+
+export interface IStockPreview extends IStockQuote {
 }
 
 /** A currency's ISO-4217 standard code */
@@ -667,47 +699,6 @@ export interface IStockAdvancedQuote extends IStockInformation {
     beta?: number;
     /** Instrument's earnings per share. */
     earningsPerShare?: number;
-}
-
-export class StockQuote extends StockInformation implements IStockQuote {
-    /** Instrument's current price. */
-    currentPrice?: number;
-    /** Instrument's current delta. */
-    currentDelta?: number;
-
-    constructor(data?: IStockQuote) {
-        super(data);
-    }
-
-    override init(_data?: any) {
-        super.init(_data);
-        if (_data) {
-            this.currentPrice = _data["CurrentPrice"];
-            this.currentDelta = _data["CurrentDelta"];
-        }
-    }
-
-    static override fromJS(data: any): StockQuote {
-        data = typeof data === 'object' ? data : {};
-        let result = new StockQuote();
-        result.init(data);
-        return result;
-    }
-
-    override toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["CurrentPrice"] = this.currentPrice;
-        data["CurrentDelta"] = this.currentDelta;
-        super.toJSON(data);
-        return data;
-    }
-}
-
-export interface IStockQuote extends IStockInformation {
-    /** Instrument's current price. */
-    currentPrice?: number;
-    /** Instrument's current delta. */
-    currentDelta?: number;
 }
 
 export class DayStockPrice implements IDayStockPrice {
