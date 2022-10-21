@@ -37,7 +37,9 @@
     overflow-y: scroll;
 }
 
-.title {
+.app-name {
+    margin: 5px;
+    padding: 10px;
     color: lightgrey;
 }
 

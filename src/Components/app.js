@@ -88,7 +88,7 @@ class App extends React.Component
                     </div>
                     <div className="side-bar-spacer"></div>
                     <div className="side-bar-bottom">
-                        <div className="component title">IEXCloud</div>
+                        <div className="app-name">IEXCloud</div>
                         <MarketStatus marketStatus={this.state.MarketStatus} />
                     </div>
                 </div>
