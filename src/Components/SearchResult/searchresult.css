@@ -33,6 +33,7 @@
 
 .search-result-price {
     font-weight: bold;
+    text-align: end;
 }
 
 .search-result-delta {
