@@ -1,6 +1,6 @@
 import React from "react";
 import './app.css';
-import { StockSearchClient, MarketStatusClient, StockAdvancedQuoteClient } from "../stocks-api-client.ts";
+import { TickerSymbolsClient, StockSearchClient, MarketStatusClient, StockAdvancedQuoteClient } from "../stocks-api-client.ts";
 
 import StockInfo from "./StockInfo/stockInfo";
 import StockPrice from "./StockPrice/stockprice";
@@ -13,7 +13,8 @@ const initialState = {
     ActiveStockPreview: null,
     ActiveStockAdvancedQuote: null,
     MarketStatus: null,
-    SearchResults: null
+    SearchResults: null,
+    TickerSymbols: null
 };
 
 class App extends React.Component
@@ -26,6 +27,7 @@ class App extends React.Component
 
     componentDidMount()
     {
+        this.retrieveTickerSymbols();
         this.searchStock();
         this.updateMarketStatus();
         this.retrieveAdvancedQuote();
@@ -53,6 +55,14 @@ class App extends React.Component
         await client
             .get(this.state.ActiveStockTickerSymbol)
             .then(data => this.setState({ ActiveStockAdvancedQuote: data}));
+    }
+
+    async retrieveTickerSymbols()
+    {
+        let client = new TickerSymbolsClient()
+        await client
+            .get()
+            .then(data => this.setState({ TickerSymbols: data }));
     }
 
     render()
