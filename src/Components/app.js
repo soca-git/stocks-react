@@ -9,7 +9,8 @@ import StockAdditionalInfo from "./StockAdditionalInfo/stockadditionalinfo";
 import SearchResult from "./SearchResult/searchresult";
 
 const initialState = {
-    ActiveStockTickerSymbol: "QCOM",
+    SearchFragment: "BB",
+    ActiveStockTickerSymbol: null,
     ActiveStockPreview: null,
     ActiveStockAdvancedQuote: null,
     MarketStatus: null,
@@ -29,6 +30,10 @@ class App extends React.Component
     {
         this.retrieveTickerSymbols();
         this.searchStock();
+    }
+
+    componentDidUpdate()
+    {
         this.updateMarketStatus();
         this.retrieveAdvancedQuote();
     }
@@ -37,8 +42,12 @@ class App extends React.Component
     {
         let client = new StockSearchClient();
         await client
-            .get(this.state.ActiveStockTickerSymbol)
-            .then(data => this.setState({ ActiveStockPreview: data[0], SearchResults: data }));
+            .get(this.state.SearchFragment)
+            .then(data => this.setState({
+                ActiveStockTickerSymbol: data[0].tickerSymbol,
+                ActiveStockPreview: data[0],
+                SearchResults: data
+            }));
     }
 
     async updateMarketStatus()
@@ -74,15 +83,7 @@ class App extends React.Component
                     <div className="side-bar-spacer"></div>
                     <div className="search-results">
                         <ul>
-                            <SearchResult activeStockPreview={this.state.ActiveStockPreview} />
-                            <SearchResult activeStockPreview={this.state.ActiveStockPreview} />
-                            <SearchResult activeStockPreview={this.state.ActiveStockPreview} />
-                            <SearchResult activeStockPreview={this.state.ActiveStockPreview} />
-                            <SearchResult activeStockPreview={this.state.ActiveStockPreview} />
-                            <SearchResult activeStockPreview={this.state.ActiveStockPreview} />
-                            <SearchResult activeStockPreview={this.state.ActiveStockPreview} />
-                            <SearchResult activeStockPreview={this.state.ActiveStockPreview} />
-                            <SearchResult activeStockPreview={this.state.ActiveStockPreview} />
+                            {this.state?.SearchResults?.map((searchResult) => <SearchResult activeStockPreview={searchResult} />)}
                         </ul>
                     </div>
                     <div className="side-bar-spacer"></div>
