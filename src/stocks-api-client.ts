@@ -588,31 +588,31 @@ export class StockAdvancedQuote extends StockInformation implements IStockAdvanc
     /** Instrument's current delta. */
     currentDelta?: number;
     /** Instrument's price on market open. */
-    openPrice?: number;
+    openPrice?: number | undefined;
     /** Instrument's price on market close. */
-    closePrice?: number;
+    closePrice?: number | undefined;
     /** Instrument's highest price. */
-    highPrice?: number;
+    highPrice?: number | undefined;
     /** Instrument's lowest price. */
-    lowPrice?: number;
+    lowPrice?: number | undefined;
     /** Instrument's traded volume. */
-    volume?: number;
+    volume?: number | undefined;
     /** Instrument's average traded volume. */
-    averageVolume?: number;
+    averageVolume?: number | undefined;
     /** Instrument's price per earnings ratio. */
-    pricePerEarningsRatio?: number;
+    pricePerEarningsRatio?: number | undefined;
     /** Instrument's market cap. */
-    marketCap?: number;
+    marketCap?: number | undefined;
     /** Instrument's highest value in the past 52 weeks. */
-    fiftyTwoWeekHigh?: number;
+    fiftyTwoWeekHigh?: number | undefined;
     /** Instrument's lowest value in the past 52 weeks. */
-    fiftyTwoWeekLow?: number;
+    fiftyTwoWeekLow?: number | undefined;
     /** Instrument's yield. */
-    yield?: number;
+    yield?: number | undefined;
     /** Instrument's beta. */
-    beta?: number;
+    beta?: number | undefined;
     /** Instrument's earnings per share. */
-    earningsPerShare?: number;
+    earningsPerShare?: number | undefined;
 
     constructor(data?: IStockAdvancedQuote) {
         super(data);
@@ -674,31 +674,31 @@ export interface IStockAdvancedQuote extends IStockInformation {
     /** Instrument's current delta. */
     currentDelta?: number;
     /** Instrument's price on market open. */
-    openPrice?: number;
+    openPrice?: number | undefined;
     /** Instrument's price on market close. */
-    closePrice?: number;
+    closePrice?: number | undefined;
     /** Instrument's highest price. */
-    highPrice?: number;
+    highPrice?: number | undefined;
     /** Instrument's lowest price. */
-    lowPrice?: number;
+    lowPrice?: number | undefined;
     /** Instrument's traded volume. */
-    volume?: number;
+    volume?: number | undefined;
     /** Instrument's average traded volume. */
-    averageVolume?: number;
+    averageVolume?: number | undefined;
     /** Instrument's price per earnings ratio. */
-    pricePerEarningsRatio?: number;
+    pricePerEarningsRatio?: number | undefined;
     /** Instrument's market cap. */
-    marketCap?: number;
+    marketCap?: number | undefined;
     /** Instrument's highest value in the past 52 weeks. */
-    fiftyTwoWeekHigh?: number;
+    fiftyTwoWeekHigh?: number | undefined;
     /** Instrument's lowest value in the past 52 weeks. */
-    fiftyTwoWeekLow?: number;
+    fiftyTwoWeekLow?: number | undefined;
     /** Instrument's yield. */
-    yield?: number;
+    yield?: number | undefined;
     /** Instrument's beta. */
-    beta?: number;
+    beta?: number | undefined;
     /** Instrument's earnings per share. */
-    earningsPerShare?: number;
+    earningsPerShare?: number | undefined;
 }
 
 export class DayStockPrice implements IDayStockPrice {
