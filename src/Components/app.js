@@ -7,6 +7,7 @@ import StockPrice from "./StockPrice/stockprice";
 import MarketStatus from "./MarketStatus/marketstatus";
 import StockAdditionalInfo from "./StockAdditionalInfo/stockadditionalinfo";
 import SearchResult from "./SearchResult/searchresult";
+import SearchBar from "./SearchBar/searchbar";
 
 const initialState = {
     SearchFragment: "BB",
@@ -38,6 +39,13 @@ class App extends React.Component
         await client
             .get()
             .then(data => this.setState({ TickerSymbols: data }));
+    }
+
+    setSearchFragment(event)
+    {
+        console.log(event.target.value);
+        this.setState({ SearchFragment: event.target.value },
+            () => { this.searchStock() });
     }
 
     async searchStock()
@@ -79,7 +87,7 @@ class App extends React.Component
         return(
             <div className="app">
                 <div className="side-bar">
-                    <div className="component search">&#128296;</div>
+                    <SearchBar searchFunction={(event) => this.setSearchFragment(event)} />
                     <div className="side-bar-spacer"></div>
                     <div className="search-results">
                         <ul>

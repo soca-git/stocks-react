@@ -1,0 +1,28 @@
+
+.search-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.search-bar input {
+    width: 200px;
+    padding: 3px;
+
+    outline: none;
+    border: 1px solid grey;
+    border-left: none;
+    border-radius: 0px 5px 5px 0px;
+}
+
+.search-bar input:focus .search-bar input:hover {
+    border: 1px solid darkgrey;
+}
+
+.search-bar i {
+    border: 1px solid grey;
+    border-right: none;
+    border-radius: 5px 0px 0px 5px;
+
+    background-color: white;
+}
