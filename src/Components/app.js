@@ -39,10 +39,9 @@ class App extends React.Component
             () => { this.retrieveSearchResults() });
     }
 
-    setActiveStock(event)
+    setActiveStock(symbol)
     {
-        console.log(event.target.value);
-        this.setState({ ActiveStockTickerSymbol: event.target.value },
+        this.setState({ ActiveStockTickerSymbol: symbol },
             () => { this.updateActiveStock() });
     }
 
@@ -103,7 +102,7 @@ class App extends React.Component
                     <div className="side-bar-spacer"></div>
                     <div className="search-results">
                         <ul>
-                            {this.state?.SearchResults?.map((searchResult) => <SearchResult activeStockPreview={searchResult} />)}
+                            {this.state?.SearchResults?.map((searchResult) => <SearchResult activeStockPreview={searchResult} setActiveStockFunction={(symbol) => this.setActiveStock(symbol)} />)}
                         </ul>
                     </div>
                     <div className="side-bar-spacer"></div>

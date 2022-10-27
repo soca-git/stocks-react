@@ -18,8 +18,8 @@ function SearchResult(props)
     }
 
     return (
-        <div className="component search-result">
-            <li key={props.activeStockPreview?.tickerSymbol}>
+        <li className="component search-result" key={props.activeStockPreview?.tickerSymbol}>
+            <button value={props.activeStockPreview?.tickerSymbol} onClick={(event) => props.setActiveStockFunction(event.target.value)}>
                 <div>
                     <div className="search-result-top">
                         <div className="search-result-symbol">{props.activeStockPreview?.tickerSymbol}</div>
@@ -31,8 +31,8 @@ function SearchResult(props)
                     <div className="search-result-price">{FormatPrice(props.activeStockPreview?.currentPrice)}</div>
                     <div className={deltaClassName}>{deltaSymbol}{FormatPrice(props.activeStockPreview?.currentDelta)}</div>
                 </div>
-            </li>
-        </div>
+            </button>
+        </li>
     );
 }
 
