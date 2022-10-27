@@ -3,12 +3,12 @@ import { FormatPrice } from '../../Utils/stockdataformatter.js';
 
 function StockPrice(props)
 {
-    let priceDelta = <h3 className="stock-price-delta stock-price-delta-negative">{FormatPrice(props.activeStockPreview?.currentDelta)}</h3>;
+    let priceDelta = <h3 className="stock-price-delta stock-price-delta-negative">{FormatPrice(props.activeStockQuote?.currentDelta)}</h3>;
     let priceSource = <div className="stock-price-source">At Close</div>
 
-    if (props.activeStockPreview?.currentDelta >= 0)
+    if (props.activeStockQuote?.currentDelta >= 0)
     {
-        priceDelta = <h3 className="stock-price-delta stock-price-delta-positive">+{FormatPrice(props.activeStockPreview?.currentDelta)}</h3>;
+        priceDelta = <h3 className="stock-price-delta stock-price-delta-positive">+{FormatPrice(props.activeStockQuote?.currentDelta)}</h3>;
     }
 
     if (props.marketStatus?.status == "Open")
@@ -19,7 +19,7 @@ function StockPrice(props)
     return(
         <div className="component stock-price">
             <div className="stock-price-top">
-                <h3 className="stock-price-current">{FormatPrice(props.activeStockPreview?.currentPrice)}</h3>
+                <h3 className="stock-price-current">{FormatPrice(props.activeStockQuote?.currentPrice)}</h3>
                 {priceDelta}
             </div>
             {priceSource}

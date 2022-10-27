@@ -1,6 +1,6 @@
 import React from "react";
 import './app.css';
-import { TickerSymbolsClient, StockSearchClient, MarketStatusClient, StockAdvancedQuoteClient } from "../stocks-api-client.ts";
+import { TickerSymbolsClient, StockSearchClient, MarketStatusClient, StockQuoteClient, StockAdvancedQuoteClient } from "../stocks-api-client.ts";
 
 import StockInfo from "./StockInfo/stockInfo";
 import StockPrice from "./StockPrice/stockprice";
@@ -10,13 +10,13 @@ import SearchResult from "./SearchResult/searchresult";
 import SearchBar from "./SearchBar/searchbar";
 
 const initialState = {
+    TickerSymbols: null,
     SearchFragment: "BB",
     ActiveStockTickerSymbol: null,
-    ActiveStockPreview: null,
+    ActiveStockQuote: null,
     ActiveStockAdvancedQuote: null,
     MarketStatus: null,
     SearchResults: null,
-    TickerSymbols: null
 };
 
 class App extends React.Component
@@ -30,7 +30,44 @@ class App extends React.Component
     componentDidMount()
     {
         this.retrieveTickerSymbols();
-        this.searchStock();
+        this.retrieveSearchResults();
+    }
+
+    setSearchFragment(event)
+    {
+        this.setState({ SearchFragment: event.target.value },
+            () => { this.retrieveSearchResults() });
+    }
+
+    setActiveStock(event)
+    {
+        console.log(event.target.value);
+        this.setState({ ActiveStockTickerSymbol: event.target.value },
+            () => { this.updateActiveStock() });
+    }
+
+    updateActiveStock()
+    {
+        this.retrieveMarketStatus();
+        this.retrieveQuote();
+        this.retrieveAdvancedQuote();
+    }
+
+    async retrieveSearchResults()
+    {
+        let client = new StockSearchClient();
+        await client
+            .get(this.state.SearchFragment)
+            .then(data => this.setState({ ActiveStockTickerSymbol: data[0].tickerSymbol, SearchResults: data},
+                () => { this.updateActiveStock() }));
+    }
+
+    async retrieveMarketStatus()
+    {
+        let client = new MarketStatusClient();
+        await client
+            .get(this.state.ActiveStockTickerSymbol)
+            .then(data => this.setState({ MarketStatus: data}));
     }
 
     async retrieveTickerSymbols()
@@ -41,37 +78,12 @@ class App extends React.Component
             .then(data => this.setState({ TickerSymbols: data }));
     }
 
-    setSearchFragment(event)
+    async retrieveQuote()
     {
-        console.log(event.target.value);
-        this.setState({ SearchFragment: event.target.value },
-            () => { this.searchStock() });
-    }
-
-    async searchStock()
-    {
-        let client = new StockSearchClient();
-        await client
-            .get(this.state.SearchFragment)
-            .then(data => this.setState({
-                ActiveStockTickerSymbol: data[0].tickerSymbol,
-                ActiveStockPreview: data[0],
-                SearchResults: data
-            }, () => {this.updateAfterSearch()}));
-    }
-
-    async updateAfterSearch()
-    {
-        this.updateMarketStatus();
-        this.retrieveAdvancedQuote();
-    }
-
-    async updateMarketStatus()
-    {
-        let client = new MarketStatusClient();
+        let client = new StockQuoteClient();
         await client
             .get(this.state.ActiveStockTickerSymbol)
-            .then(data => this.setState({ MarketStatus: data}));
+            .then(data => this.setState({ ActiveStockAdvancedQuote: data}));
     }
 
     async retrieveAdvancedQuote()
@@ -79,7 +91,7 @@ class App extends React.Component
         let client = new StockAdvancedQuoteClient();
         await client
             .get(this.state.ActiveStockTickerSymbol)
-            .then(data => this.setState({ ActiveStockAdvancedQuote: data}));
+            .then(data => this.setState({ ActiveStockQuote: data}));
     }
 
     render()
@@ -104,8 +116,8 @@ class App extends React.Component
                     <div className="main-content-top">
                         <div className="main-content-top-spacer"></div>
                         <div className="main-content-top-body">
-                            <StockInfo activeStockPreview={this.state.ActiveStockPreview} />
-                            <StockPrice activeStockPreview={this.state.ActiveStockPreview} marketStatus={this.state.MarketStatus} />
+                            <StockInfo activeStockQuote={this.state.ActiveStockQuote} />
+                            <StockPrice activeStockQuote={this.state.ActiveStockQuote} marketStatus={this.state.MarketStatus} />
                         </div>
                     </div>
                     <div className="main-content-bottom">
