@@ -82,7 +82,7 @@ class App extends React.Component
         let client = new StockQuoteClient();
         await client
             .get(this.state.ActiveStockTickerSymbol)
-            .then(data => this.setState({ ActiveStockAdvancedQuote: data}));
+            .then(data => this.setState({ ActiveStockQuote: data}));
     }
 
     async retrieveAdvancedQuote()
@@ -90,7 +90,7 @@ class App extends React.Component
         let client = new StockAdvancedQuoteClient();
         await client
             .get(this.state.ActiveStockTickerSymbol)
-            .then(data => this.setState({ ActiveStockQuote: data}));
+            .then(data => this.setState({ ActiveStockAdvancedQuote: data}));
     }
 
     render()
