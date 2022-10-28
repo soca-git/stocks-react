@@ -11,7 +11,7 @@ function StockPrice(props)
         priceDelta = <h3 className="stock-price-delta stock-price-delta-positive">+{FormatPrice(props.activeStockQuote?.currentDelta)}</h3>;
     }
 
-    if (props.marketStatus?.status == "Open")
+    if (props.marketStatus?.status === "Open")
     {
         priceSource = <div className="stock-price-source">Live</div>
     }
