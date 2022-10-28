@@ -1,6 +1,6 @@
 import React from "react";
 import './app.css';
-import { TickerSymbolsClient, StockSearchClient, MarketStatusClient, StockQuoteClient, StockAdvancedQuoteClient } from "../stocks-api-client.ts";
+import * as clients from "../stocks-api-client.ts";
 
 import StockInfo from "./StockInfo/stockInfo";
 import StockPrice from "./StockPrice/stockprice";
@@ -12,11 +12,12 @@ import SearchBar from "./SearchBar/searchbar";
 const initialState = {
     TickerSymbols: null,
     SearchFragment: "BB",
-    ActiveStockTickerSymbol: null,
+    ActiveStockTickerSymbol: "BB",
     ActiveStockQuote: null,
     ActiveStockAdvancedQuote: null,
     MarketStatus: null,
     SearchResults: null,
+    ActiveStockChartData: null
 };
 
 class App extends React.Component
@@ -29,8 +30,9 @@ class App extends React.Component
 
     componentDidMount()
     {
-        this.retrieveTickerSymbols();
+        //this.retrieveTickerSymbols();
         this.retrieveSearchResults();
+        this.updateActiveStock();
     }
 
     setSearchFragment(event)
@@ -50,28 +52,28 @@ class App extends React.Component
         this.retrieveMarketStatus();
         this.retrieveQuote();
         this.retrieveAdvancedQuote();
+        this.retrieveChartData();
     }
 
     async retrieveSearchResults()
     {
-        let client = new StockSearchClient();
+        let client = new clients.StockSearchClient();
         await client
             .get(this.state.SearchFragment)
-            .then(data => this.setState({ ActiveStockTickerSymbol: data[0].tickerSymbol, SearchResults: data},
-                () => { this.updateActiveStock() }));
+            .then(data => this.setState({ SearchResults: data }));
     }
 
     async retrieveMarketStatus()
     {
-        let client = new MarketStatusClient();
+        let client = new clients.MarketStatusClient();
         await client
             .get(this.state.ActiveStockTickerSymbol)
-            .then(data => this.setState({ MarketStatus: data}));
+            .then(data => this.setState({ MarketStatus: data }));
     }
 
     async retrieveTickerSymbols()
     {
-        let client = new TickerSymbolsClient()
+        let client = new clients.TickerSymbolsClient()
         await client
             .get()
             .then(data => this.setState({ TickerSymbols: data }));
@@ -79,18 +81,26 @@ class App extends React.Component
 
     async retrieveQuote()
     {
-        let client = new StockQuoteClient();
+        let client = new clients.StockQuoteClient();
         await client
             .get(this.state.ActiveStockTickerSymbol)
-            .then(data => this.setState({ ActiveStockQuote: data}));
+            .then(data => this.setState({ ActiveStockQuote: data }));
     }
 
     async retrieveAdvancedQuote()
     {
-        let client = new StockAdvancedQuoteClient();
+        let client = new clients.StockAdvancedQuoteClient();
         await client
             .get(this.state.ActiveStockTickerSymbol)
-            .then(data => this.setState({ ActiveStockAdvancedQuote: data}));
+            .then(data => this.setState({ ActiveStockAdvancedQuote: data }));
+    }
+
+    async retrieveChartData()
+    {
+        let client = new clients.HistoricalStockPricesClient();
+        await client
+            .get(this.state.ActiveStockTickerSymbol)
+            .then(data => this.setState({ ActiveStockChartData: data }));
     }
 
     render()
