@@ -112,7 +112,9 @@ class App extends React.Component
                     <div className="side-bar-spacer"></div>
                     <div className="search-results">
                         <ul>
-                            {this.state?.SearchResults?.map((searchResult) => <SearchResult activeStockPreview={searchResult} setActiveStockFunction={(symbol) => this.setActiveStock(symbol)} />)}
+                            {this.state?.SearchResults?.map((searchResult) => 
+                                <SearchResult key={searchResult?.tickerSymbol} activeStockPreview={searchResult} setActiveStockFunction={(symbol) => this.setActiveStock(symbol)} />
+                            )}
                         </ul>
                     </div>
                     <div className="side-bar-spacer"></div>

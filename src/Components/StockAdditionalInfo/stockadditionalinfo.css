@@ -1,9 +1,7 @@
 
 .additional-info table {
     width: 100%;
-}
 
-.additional-info tbody {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -17,9 +15,9 @@
 .additional-info td {
     padding: 5px;
 }
-
-tcol div {
-    min-width: 120px;
+ 
+.additional-info tr {
+    min-width: 130px;
 
     display: flex;
     flex-direction: row;
