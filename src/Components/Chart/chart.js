@@ -8,6 +8,7 @@ import {
     LineElement,
     Title,
     Tooltip,
+    Filler,
     Legend,
 } from 'chart.js';
 
@@ -20,6 +21,7 @@ ChartJS.register(
     LineElement,
     Title,
     Tooltip,
+    Filler,
     Legend
 );
 
@@ -27,30 +29,40 @@ const options = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-        legend: {
-            position: 'top',
-        },
+        legend: { display: false },
     },
+    scales: {
+        xAxis: {
+            grid: { color: 'whitesmoke' },
+            ticks: { color: 'black', font: { size: 9, weight: 'bold' }, maxRotation: 0 }
+        },
+        yAxis: {
+            position: 'right',
+            grid: { color: 'whitesmoke' },
+            ticks: { color: 'black', font: { size: 11, weight: 'bold' } }
+        },
+    }
 };
 
 function Chart(props)
 {
-    let labels = props.data?.map((data) => data.date.toDateString());
+    let labels = props.data?.map((data) => data.date.getDate());
 
     let data = {
         labels,
         datasets: [
+            // {
+            //   label: 'High',
+            //   data: props.data?.map((data) => data.high),
+            //   borderColor: 'deeppink',
+            //   backgroundColor: 'deeppink',
+            // },
             {
-              label: 'High',
-              data: props.data?.map((data) => data.high),
+              fill: true,
+              label: 'Close',
+              data: props.data?.map((data) => data.close),
               borderColor: 'aquamarine',
-              backgroundColor: 'aquamarine',
-            },
-            {
-              label: 'Low',
-              data: props.data?.map((data) => data.low),
-              borderColor: 'deeppink',
-              backgroundColor: 'deeppink',
+              backgroundColor: '#e6fff7',
             },
         ],
     };
