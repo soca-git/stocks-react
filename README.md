@@ -13,7 +13,8 @@
 - [react-ttt](https://github.com/soca-git/react-ttt)
 
 ## UI Breakdown & Components
-![macos-stocks-breakdown](./macos-stocks-breakdown.png)
 ![stocks-react-components](./stocks-react-components.png)
+
+![macos-stocks-breakdown](./macos-stocks-breakdown.png)
 
 ---
