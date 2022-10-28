@@ -6,6 +6,8 @@
 
     display: flex;
     flex-direction: row;
+
+    height: 700px;
 }
 
 .side-bar {
@@ -31,9 +33,6 @@
 }
 
 .search-results {
-    height: 100%;
-
-    max-height: 500px;
     overflow-y: scroll;
 }
 
@@ -44,13 +43,14 @@
 }
 
 .side-bar-bottom {
+    margin-top: auto;
+
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
 .main-content {
-    width: 650px;
     padding: 5px;
     display: flex;
     flex-direction: column;
@@ -77,10 +77,6 @@
     padding: 5px;
 }
 
-.chart {
-    height: 150px;
-}
-
 .news {
     height: 100px;
 }
@@ -88,9 +84,9 @@
 .component {
     margin: 5px;
     padding: 10px;
-    border: 1px dashed grey;
+    /* border: 1px dashed grey;
     border-radius: 5px;
-    background: radial-gradient(circle at 10% 20%, rgba(216, 241, 230, 0.46) 0.1%, rgba(233, 226, 226, 0.28) 90.1%);
+    background: radial-gradient(circle at 10% 20%, rgba(216, 241, 230, 0.46) 0.1%, rgba(233, 226, 226, 0.28) 90.1%); */
 }
 
 ul {

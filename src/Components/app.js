@@ -8,6 +8,7 @@ import MarketStatus from "./MarketStatus/marketstatus";
 import StockAdditionalInfo from "./StockAdditionalInfo/stockadditionalinfo";
 import SearchResult from "./SearchResult/searchresult";
 import SearchBar from "./SearchBar/searchbar";
+import Chart from "./Chart/chart";
 
 const initialState = {
     TickerSymbols: null,
@@ -132,7 +133,7 @@ class App extends React.Component
                         </div>
                     </div>
                     <div className="main-content-bottom">
-                        <div className="component chart">&#128296;</div>
+                        <Chart data={this.state.ActiveStockChartData} />
                         <StockAdditionalInfo activeStockAdvancedQuote={this.state.ActiveStockAdvancedQuote} />
                         <div className="component news">&#128296;</div>
                     </div>
