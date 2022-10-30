@@ -1,13 +1,15 @@
 
 .app {
+    height: 700px;
+    width: 900px;
     padding: 5px;
-    border: 1px dashed grey;
-    border-radius: 10px;
 
     display: flex;
     flex-direction: row;
 
-    height: 700px;
+    border: 1px dashed grey;
+    border-radius: 10px;
+    color: #34495e;
 }
 
 .side-bar {
@@ -77,18 +79,29 @@
     padding: 5px;
 }
 
-.news {
-    height: 100px;
+.news-articles {
+    max-height: 200px;
+    overflow-y: scroll;
+}
+
+.news-articles ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .component {
     margin: 5px;
     padding: 10px;
-    /* border: 1px dashed grey;
-    border-radius: 5px;
-    background: radial-gradient(circle at 10% 20%, rgba(216, 241, 230, 0.46) 0.1%, rgba(233, 226, 226, 0.28) 90.1%); */
+    /* border: 1px dashed blueviolet;
+    border-radius: 5px; */
 }
 
 ul {
     list-style-type: none;
+}
+
+button {
+    color: inherit;
 }

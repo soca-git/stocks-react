@@ -1,0 +1,28 @@
+
+.stock-news-article {
+    width: 250px;
+
+    font-size: small;
+}
+
+.stock-news-article-middle {
+    padding-top: 5px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.stock-news-article-source {
+    color: mediumorchid;
+}
+
+.stock-news-article a {
+    text-decoration: none;
+    color: darkslategrey;
+    font-weight: bold;
+}
+
+.stock-news-article a:hover {
+    opacity: 70%;
+}

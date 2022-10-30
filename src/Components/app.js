@@ -9,6 +9,7 @@ import StockAdditionalInfo from "./StockAdditionalInfo/stockadditionalinfo";
 import SearchResult from "./SearchResult/searchresult";
 import SearchBar from "./SearchBar/searchbar";
 import Chart from "./Chart/chart";
+import StockNewsArticle from "./StockNewsArticle/stocknewsarticle";
 
 const initialState = {
     TickerSymbols: null,
@@ -18,7 +19,8 @@ const initialState = {
     ActiveStockAdvancedQuote: null,
     MarketStatus: null,
     SearchResults: null,
-    ActiveStockChartData: null
+    ActiveStockChartData: null,
+    ActiveStockNews: null
 };
 
 class App extends React.Component
@@ -54,6 +56,7 @@ class App extends React.Component
         this.retrieveQuote();
         this.retrieveAdvancedQuote();
         this.retrieveChartData();
+        this.retrieveNews();
     }
 
     async retrieveSearchResults()
@@ -104,6 +107,14 @@ class App extends React.Component
             .then(data => this.setState({ ActiveStockChartData: data }));
     }
 
+    async retrieveNews()
+    {
+        let client = new clients.HistoricalStockNewsClient();
+        await client
+            .get(this.state.ActiveStockTickerSymbol, "PastWeek", 5)
+            .then(data => this.setState({ ActiveStockNews: data }));
+    }
+
     render()
     {
         return(
@@ -135,7 +146,13 @@ class App extends React.Component
                     <div className="main-content-bottom">
                         <Chart data={this.state.ActiveStockChartData} />
                         <StockAdditionalInfo activeStockAdvancedQuote={this.state.ActiveStockAdvancedQuote} />
-                        <div className="component news">&#128296;</div>
+                        <div className="news-articles">
+                            <ul>
+                                {this.state?.ActiveStockNews?.map((newsArticle) => 
+                                    <StockNewsArticle key={newsArticle?.headline} newsArticle={newsArticle} />
+                                )}
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
