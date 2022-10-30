@@ -34,19 +34,19 @@ const options = {
     scales: {
         xAxis: {
             grid: { color: 'whitesmoke' },
-            ticks: { color: 'black', font: { size: 9, weight: 'bold' }, maxRotation: 0 }
+            ticks: { color: 'darkslategrey', font: { size: 9, weight: 'bold' }, maxRotation: 0 }
         },
         yAxis: {
             position: 'right',
             grid: { color: 'whitesmoke' },
-            ticks: { color: 'black', font: { size: 11, weight: 'bold' } }
+            ticks: { color: 'darkslategrey', font: { size: 11, weight: 'bold' } }
         },
     }
 };
 
 function Chart(props)
 {
-    let labels = props.data?.map((data) => data.date.getDate());
+    let labels = props.data?.map((data) => data.date.toDateString());
 
     let data = {
         labels,
@@ -61,8 +61,8 @@ function Chart(props)
               fill: true,
               label: 'Close',
               data: props.data?.map((data) => data.close),
-              borderColor: 'aquamarine',
-              backgroundColor: '#e6fff7',
+              borderColor: '#99ffdd',
+              backgroundColor: '#ccffee',
             },
         ],
     };
