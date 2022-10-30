@@ -363,11 +363,11 @@ export class HistoricalStockPricesClient {
         if (tickerSymbol === undefined || tickerSymbol === null)
             throw new Error("The parameter 'tickerSymbol' must be defined and cannot be null.");
         else
-            url_ += "tickerSymbol=" + encodeURIComponent("" + tickerSymbol) + "&";
+            url_ += "TickerSymbol=" + encodeURIComponent("" + tickerSymbol) + "&";
         if (range === null)
             throw new Error("The parameter 'range' cannot be null.");
         else if (range !== undefined)
-            url_ += "range=" + encodeURIComponent("" + range) + "&";
+            url_ += "Range=" + encodeURIComponent("" + range) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_: RequestInit = {
@@ -405,6 +405,78 @@ export class HistoricalStockPricesClient {
             });
         }
         return Promise.resolve<DayStockPrice[]>(null as any);
+    }
+}
+
+export class HistoricalStockNewsClient {
+    private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
+        this.http = http ? http : window as any;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://localhost:53672";
+    }
+
+    /**
+     * Returns historical news of the specified market instrument.
+     * @param tickerSymbol A market instrument's ticker symbol.
+     * @param range (optional) The period of time for historical news to be returned.
+    The default is "PastWeek".
+     * @param count (optional) The maximum number of results returned.
+    Defaults to 10.
+     */
+    get(tickerSymbol: string, range: HistoricalStockNewsRange | undefined, count: number | undefined): Promise<StockNewsArticle[]> {
+        let url_ = this.baseUrl + "/api/gateway/news/historical?";
+        if (tickerSymbol === undefined || tickerSymbol === null)
+            throw new Error("The parameter 'tickerSymbol' must be defined and cannot be null.");
+        else
+            url_ += "TickerSymbol=" + encodeURIComponent("" + tickerSymbol) + "&";
+        if (range === null)
+            throw new Error("The parameter 'range' cannot be null.");
+        else if (range !== undefined)
+            url_ += "Range=" + encodeURIComponent("" + range) + "&";
+        if (count === null)
+            throw new Error("The parameter 'count' cannot be null.");
+        else if (count !== undefined)
+            url_ += "Count=" + encodeURIComponent("" + count) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_: RequestInit = {
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processGet(_response);
+        });
+    }
+
+    protected processGet(response: Response): Promise<StockNewsArticle[]> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(StockNewsArticle.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<StockNewsArticle[]>(null as any);
     }
 }
 
@@ -521,7 +593,7 @@ export class StockQuote extends StockInformation implements IStockQuote {
         super(data);
     }
 
-    override init(_data?: any) {
+    init(_data?: any) {
         super.init(_data);
         if (_data) {
             this.currentPrice = _data["CurrentPrice"];
@@ -529,14 +601,14 @@ export class StockQuote extends StockInformation implements IStockQuote {
         }
     }
 
-    static override fromJS(data: any): StockQuote {
+    static fromJS(data: any): StockQuote {
         data = typeof data === 'object' ? data : {};
         let result = new StockQuote();
         result.init(data);
         return result;
     }
 
-    override toJSON(data?: any) {
+    toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["CurrentPrice"] = this.currentPrice;
         data["CurrentDelta"] = this.currentDelta;
@@ -558,18 +630,18 @@ export class StockPreview extends StockQuote implements IStockPreview {
         super(data);
     }
 
-    override init(_data?: any) {
+    init(_data?: any) {
         super.init(_data);
     }
 
-    static override fromJS(data: any): StockPreview {
+    static fromJS(data: any): StockPreview {
         data = typeof data === 'object' ? data : {};
         let result = new StockPreview();
         result.init(data);
         return result;
     }
 
-    override toJSON(data?: any) {
+    toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         super.toJSON(data);
         return data;
@@ -618,7 +690,7 @@ export class StockAdvancedQuote extends StockInformation implements IStockAdvanc
         super(data);
     }
 
-    override init(_data?: any) {
+    init(_data?: any) {
         super.init(_data);
         if (_data) {
             this.currentPrice = _data["CurrentPrice"];
@@ -639,14 +711,14 @@ export class StockAdvancedQuote extends StockInformation implements IStockAdvanc
         }
     }
 
-    static override fromJS(data: any): StockAdvancedQuote {
+    static fromJS(data: any): StockAdvancedQuote {
         data = typeof data === 'object' ? data : {};
         let result = new StockAdvancedQuote();
         result.init(data);
         return result;
     }
 
-    override toJSON(data?: any) {
+    toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["CurrentPrice"] = this.currentPrice;
         data["CurrentDelta"] = this.currentDelta;
@@ -772,8 +844,81 @@ export interface IDayStockPrice {
 /** Range of time for which prices will be returned. */
 export type HistoricalStockPricesRange = "FiveDay" | "OneMonth" | "ThreeMonths" | "OneYear";
 
+export class StockNewsArticle implements IStockNewsArticle {
+    /** The headline of the article. */
+    headLine?: string;
+    /** The news source which released the article. */
+    source?: string;
+    /** The access url of the article. */
+    url?: string;
+    /** The timestamp (UTC) of the article's publication. */
+    timeStamp?: Date;
+    /** A list of ticker symbols which are considered to be related to the article. */
+    relatedTickerSymbols?: string[];
+
+    constructor(data?: IStockNewsArticle) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.headLine = _data["HeadLine"];
+            this.source = _data["Source"];
+            this.url = _data["Url"];
+            this.timeStamp = _data["TimeStamp"] ? new Date(_data["TimeStamp"].toString()) : <any>undefined;
+            if (Array.isArray(_data["RelatedTickerSymbols"])) {
+                this.relatedTickerSymbols = [] as any;
+                for (let item of _data["RelatedTickerSymbols"])
+                    this.relatedTickerSymbols!.push(item);
+            }
+        }
+    }
+
+    static fromJS(data: any): StockNewsArticle {
+        data = typeof data === 'object' ? data : {};
+        let result = new StockNewsArticle();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["HeadLine"] = this.headLine;
+        data["Source"] = this.source;
+        data["Url"] = this.url;
+        data["TimeStamp"] = this.timeStamp ? this.timeStamp.toISOString() : <any>undefined;
+        if (Array.isArray(this.relatedTickerSymbols)) {
+            data["RelatedTickerSymbols"] = [];
+            for (let item of this.relatedTickerSymbols)
+                data["RelatedTickerSymbols"].push(item);
+        }
+        return data;
+    }
+}
+
+export interface IStockNewsArticle {
+    /** The headline of the article. */
+    headLine?: string;
+    /** The news source which released the article. */
+    source?: string;
+    /** The access url of the article. */
+    url?: string;
+    /** The timestamp (UTC) of the article's publication. */
+    timeStamp?: Date;
+    /** A list of ticker symbols which are considered to be related to the article. */
+    relatedTickerSymbols?: string[];
+}
+
+/** Range of time for which news will be returned. */
+export type HistoricalStockNewsRange = "Today" | "PastWeek" | "PastMonth";
+
 export class ApiException extends Error {
-    override message: string;
+    message: string;
     status: number;
     response: string;
     headers: { [key: string]: any; };
