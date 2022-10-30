@@ -100,7 +100,7 @@ class App extends React.Component
     {
         let client = new clients.HistoricalStockPricesClient();
         await client
-            .get(this.state.ActiveStockTickerSymbol, "OneMonth")
+            .get(this.state.ActiveStockTickerSymbol, "FiveDay")
             .then(data => this.setState({ ActiveStockChartData: data }));
     }
 
