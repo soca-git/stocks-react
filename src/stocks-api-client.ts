@@ -15,7 +15,7 @@ export class MarketStatusClient {
 
     constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
         this.http = http ? http : window as any;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://localhost:53672";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://stocks-api-app.herokuapp.com";
     }
 
     /**
@@ -68,7 +68,7 @@ export class StockSearchClient {
 
     constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
         this.http = http ? http : window as any;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://localhost:53672";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://stocks-api-app.herokuapp.com";
     }
 
     /**
@@ -133,7 +133,7 @@ export class StockInformationClient {
 
     constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
         this.http = http ? http : window as any;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://localhost:53672";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://stocks-api-app.herokuapp.com";
     }
 
     /**
@@ -188,7 +188,7 @@ export class TickerSymbolsClient {
 
     constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
         this.http = http ? http : window as any;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://localhost:53672";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://stocks-api-app.herokuapp.com";
     }
 
     /**
@@ -243,7 +243,7 @@ export class StockAdvancedQuoteClient {
 
     constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
         this.http = http ? http : window as any;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://localhost:53672";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://stocks-api-app.herokuapp.com";
     }
 
     /**
@@ -296,7 +296,7 @@ export class StockQuoteClient {
 
     constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
         this.http = http ? http : window as any;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://localhost:53672";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://stocks-api-app.herokuapp.com";
     }
 
     /**
@@ -349,7 +349,7 @@ export class HistoricalStockPricesClient {
 
     constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
         this.http = http ? http : window as any;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://localhost:53672";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://stocks-api-app.herokuapp.com";
     }
 
     /**
@@ -415,7 +415,7 @@ export class HistoricalStockNewsClient {
 
     constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
         this.http = http ? http : window as any;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://localhost:53672";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://stocks-api-app.herokuapp.com";
     }
 
     /**
