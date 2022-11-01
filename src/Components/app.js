@@ -20,7 +20,7 @@ const initialState = {
     MarketStatus: null,
     SearchResults: null,
     ActiveStockChartData: null,
-    ActiveStockNews: null
+    ActiveStockNews: ["", ""]
 };
 
 class App extends React.Component

@@ -1,9 +1,9 @@
 import './stocknewsarticle.css';
 
-function StockNews(props)
+function StockNewsArticle(props)
 {
     return(
-        <li className="component stock-news-article">
+        <li key={props.key} className="component stock-news-article">
             <a href={props.newsArticle?.url} target="_blank" rel="noopener noreferrer">{props.newsArticle?.headLine}</a>
             <div className="stock-news-article-middle">
                 <div className="stock-news-article-source">{props.newsArticle?.source}</div>
@@ -13,4 +13,4 @@ function StockNews(props)
     );
 }
 
-export default StockNews;
+export default StockNewsArticle;
