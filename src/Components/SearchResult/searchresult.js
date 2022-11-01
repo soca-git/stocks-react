@@ -18,7 +18,7 @@ function SearchResult(props)
     }
 
     return (
-        <li key={props.key} className="component search-result">
+        <li className="component search-result">
             <button value={props.activeStockPreview?.tickerSymbol} onClick={(event) => props.setActiveStockFunction(event.target.value)}>
                 <div>
                     <div className="search-result-top">

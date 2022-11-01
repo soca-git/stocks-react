@@ -124,8 +124,8 @@ class App extends React.Component
                     <div className="side-bar-spacer"></div>
                     <div className="search-results">
                         <ul>
-                            {this.state?.SearchResults?.map((searchResult) => 
-                                <SearchResult key={searchResult?.tickerSymbol} activeStockPreview={searchResult} setActiveStockFunction={(symbol) => this.setActiveStock(symbol)} />
+                            {this.state?.SearchResults?.map((searchResult, index) => 
+                                <SearchResult key={index} activeStockPreview={searchResult} setActiveStockFunction={(symbol) => this.setActiveStock(symbol)} />
                             )}
                         </ul>
                     </div>
@@ -148,8 +148,8 @@ class App extends React.Component
                         <StockAdditionalInfo activeStockAdvancedQuote={this.state.ActiveStockAdvancedQuote} />
                         <div className="news-articles">
                             <ul>
-                                {this.state?.ActiveStockNews?.map((newsArticle) => 
-                                    <StockNewsArticle key={newsArticle?.headline} newsArticle={newsArticle} />
+                                {this.state?.ActiveStockNews?.map((newsArticle, index) => 
+                                    <StockNewsArticle key={index} newsArticle={newsArticle} />
                                 )}
                             </ul>
                         </div>
