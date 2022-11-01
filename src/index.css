@@ -7,13 +7,8 @@
 }
 
 body {
-  width: 100%;
-  padding: 10px;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  width: 912px;
+  padding: 50px;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
