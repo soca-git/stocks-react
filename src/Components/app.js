@@ -13,8 +13,8 @@ import StockNewsArticle from "./StockNewsArticle/stocknewsarticle";
 
 const initialState = {
     TickerSymbols: null,
-    SearchFragment: "BB",
-    ActiveStockTickerSymbol: "BB",
+    SearchFragment: "QCOM",
+    ActiveStockTickerSymbol: "QCOM",
     ActiveStockQuote: null,
     ActiveStockAdvancedQuote: null,
     MarketStatus: null,

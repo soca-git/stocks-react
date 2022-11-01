@@ -10,6 +10,8 @@
 }
 
 .stock-info-title {
+    max-width: 250px;
+
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -17,7 +19,7 @@
 
     font-size: smaller;
     white-space: nowrap;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 .stock-info-metadata {
