@@ -14,7 +14,7 @@ function StockAdditionalInfo(props)
                 <tbody>
                     <tr><th>Vol</th><td>{FormatVolume(props.activeStockAdvancedQuote?.volume) ?? "-"}</td></tr>
                     <tr><th>P/E</th><td>{props.activeStockAdvancedQuote?.pricePerEarningsRatio ?? "-"}</td></tr>
-                    <tr><th>Mkt Cap</th><td>{FormatMarketCap(props.activeStockAdvancedQuote?.marketCap ?? "-")}</td></tr>
+                    <tr><th>Mkt Cap</th><td>{FormatMarketCap(props.activeStockAdvancedQuote?.marketCap) ?? "-"}</td></tr>
                 </tbody>
                 <tbody>
                     <tr><th>52W H</th><td>{props.activeStockAdvancedQuote?.fiftyTwoWeekHigh ?? "-"}</td></tr>

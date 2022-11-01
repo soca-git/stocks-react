@@ -6,10 +6,10 @@ export function FormatPrice(rawData)
 
 export function FormatMarketCap(rawData)
 {
-    return (rawData / 1000000000).toFixed(2) + "B";
+    return rawData != null ? (rawData / 1000000000).toFixed(2) + "B" : null;
 }
 
 export function FormatVolume(rawData)
 {
-    return (rawData / 1000000).toFixed(2) + "M";
+    return rawData != null ? (rawData / 1000000).toFixed(2) + "M" : null;
 }

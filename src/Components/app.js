@@ -13,7 +13,7 @@ import StockNewsArticle from "./StockNewsArticle/stocknewsarticle";
 
 const initialState = {
     TickerSymbols: null,
-    SearchFragment: "QCOM",
+    SearchFragment: "QC",
     ActiveStockTickerSymbol: "QCOM",
     ActiveStockQuote: null,
     ActiveStockAdvancedQuote: null,
@@ -103,7 +103,7 @@ class App extends React.Component
     {
         let client = new clients.HistoricalStockPricesClient();
         await client
-            .get(this.state.ActiveStockTickerSymbol, "FiveDay")
+            .get(this.state.ActiveStockTickerSymbol, "OneMonth")
             .then(data => this.setState({ ActiveStockChartData: data }));
     }
 
